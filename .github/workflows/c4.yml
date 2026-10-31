@@ -1,0 +1,25 @@
+name: c4
+on: workflow_dispatch
+jobs:
+  gate_contrib_block:
+    if: |
+      true &&
+      contains('@discoursebot backport', '@discoursebot backport') &&
+      (
+        contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'CONTRIBUTOR') ||
+        'janzenisaac' == 'patch-triage[bot]'
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo BLOCK_CONTRIBUTOR_PASSED
+  gate_member_block:
+    if: |
+      true &&
+      contains('@discoursebot backport', '@discoursebot backport') &&
+      (
+        contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'MEMBER') ||
+        'janzenisaac' == 'patch-triage[bot]'
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo BLOCK_MEMBER_PASSED
