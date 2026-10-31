@@ -10,14 +10,20 @@ jobs:
           V_CONTRIBUTOR: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'CONTRIBUTOR') }}
           V_NONE: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'NONE') }}
           V_MEMBER: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'MEMBER') }}
+          V_OWNER: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'OWNER') }}
           V_FIRST_TIME_CONTRIBUTOR: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'FIRST_TIME_CONTRIBUTOR') }}
           V_FIRST_TIMER: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'FIRST_TIMER') }}
           V_MANNEQUIN: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'MANNEQUIN') }}
           V_EMPTY: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), '') }}
           V_SUBSTR_MEM: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'MEM') }}
-          ARR_AS_STRING: ${{ fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]') }}
+          V_SUBSTR_COLLAB: ${{ contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'LLAB') }}
         run: |
-          env | grep -E '^(V_|ARR_)' | sort
+          env | grep -E '^V_' | sort
+  gate_member:
+    if: contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'MEMBER')
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "GATE_MEMBER_PASSED"
   gate_contributor:
     if: contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), 'CONTRIBUTOR')
     runs-on: ubuntu-latest
