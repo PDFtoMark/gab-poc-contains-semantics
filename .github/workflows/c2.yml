@@ -1,0 +1,16 @@
+name: c2
+on: workflow_dispatch
+permissions: {}
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    if: ${{ true }}
+    steps:
+      - name: show
+        run: |
+          echo "start"
+          echo "member=${{ contains(fromJSON('["OWNER","MEMBER"]'), 'MEMBER') }}"
+          echo "contrib=${{ contains(fromJSON('["OWNER","MEMBER"]'), 'CONTRIBUTOR') }}"
+          echo "none=${{ contains(fromJSON('["OWNER","MEMBER"]'), 'NONE') }}"
+          echo "empty=${{ contains(fromJSON('["OWNER","MEMBER"]'), '') }}"
+          echo "substr=${{ contains(fromJSON('["OWNER","MEMBER"]'), 'MEM') }}"
